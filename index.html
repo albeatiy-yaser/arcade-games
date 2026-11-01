@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Hub — Simple HTML Games (X/O & More)</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%3E<text y=%2226%22 font-size=%2226%22>🎮</text></svg>">
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <div class="title-area">
+                <h1>🎮 Arcade Hub</h1>
+                <p>Classic casual web games with AI, sound FX & animations</p>
+            </div>
+            <button id="sound-toggle-btn" class="icon-btn" aria-label="Toggle Sound">
+                🔊 <span class="btn-text">Sound ON</span>
+            </button>
+        </div>
+
+        <nav class="nav-tabs" role="tablist">
+            <button class="nav-tab active" data-game="ttt" role="tab">
+                <span>❌⭕</span> Tic-Tac-Toe
+            </button>
+            <button class="nav-tab" data-game="c4" role="tab">
+                <span>🔴🟡</span> Connect 4
+            </button>
+            <button class="nav-tab" data-game="snake" role="tab">
+                <span>🐍</span> Neon Snake
+            </button>
+            <button class="nav-tab" data-game="memory" role="tab">
+                <span>🧠</span> Memory Match
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- =================== GAME 1: TIC-TAC-TOE (X/O) =================== -->
+        <section id="game-ttt" class="game-section">
+            <div class="game-controls">
+                <div class="control-group">
+                    <label for="ttt-mode">Mode:</label>
+                    <select id="ttt-mode">
+                        <option value="pve">vs Computer (AI)</option>
+                        <option value="pvp">2 Players (Local)</option>
+                    </select>
+                </div>
+
+                <div class="control-group" id="ttt-difficulty-container">
+                    <label for="ttt-difficulty">AI Level:</label>
+                    <select id="ttt-difficulty">
+                        <option value="hard" selected>Unbeatable (Minimax)</option>
+                        <option value="medium">Medium</option>
+                        <option value="easy">Easy</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="ttt-theme">Theme:</label>
+                    <select id="ttt-theme">
+                        <option value="classic">Classic (X vs O)</option>
+                        <option value="cyber">Cyber (⚡ vs 🔮)</option>
+                        <option value="animals">Pets (🐱 vs 🐶)</option>
+                        <option value="elements">Elements (🔥 vs ❄️)</option>
+                    </select>
+                </div>
+
+                <button id="ttt-restart-btn" class="btn-primary">New Round</button>
+                <button id="ttt-reset-scores-btn" class="btn-secondary">Reset Score</button>
+            </div>
+
+            <div class="scoreboard">
+                <div class="score-card player-x">
+                    <div class="score-title" id="ttt-label-x">Player X</div>
+                    <div class="score-val" id="ttt-score-x">0</div>
+                </div>
+                <div class="score-card ties">
+                    <div class="score-title">Ties</div>
+                    <div class="score-val" id="ttt-score-ties">0</div>
+                </div>
+                <div class="score-card player-o">
+                    <div class="score-title" id="ttt-label-o">Player O</div>
+                    <div class="score-val" id="ttt-score-o">0</div>
+                </div>
+            </div>
+
+            <div id="ttt-status" class="status-bar turn-x">Your Turn (X)</div>
+
+            <div class="ttt-grid" id="ttt-board">
+                <button class="cell" data-index="0" aria-label="Square 1"></button>
+                <button class="cell" data-index="1" aria-label="Square 2"></button>
+                <button class="cell" data-index="2" aria-label="Square 3"></button>
+                <button class="cell" data-index="3" aria-label="Square 4"></button>
+                <button class="cell" data-index="4" aria-label="Square 5"></button>
+                <button class="cell" data-index="5" aria-label="Square 6"></button>
+                <button class="cell" data-index="6" aria-label="Square 7"></button>
+                <button class="cell" data-index="7" aria-label="Square 8"></button>
+                <button class="cell" data-index="8" aria-label="Square 9"></button>
+            </div>
+        </section>
+
+        <!-- =================== GAME 2: CONNECT FOUR =================== -->
+        <section id="game-c4" class="game-section hidden">
+            <div class="game-controls">
+                <div class="control-group">
+                    <label for="c4-mode">Mode:</label>
+                    <select id="c4-mode">
+                        <option value="pve">vs Smart AI</option>
+                        <option value="pvp">2 Players (Local)</option>
+                    </select>
+                </div>
+
+                <button id="c4-restart-btn" class="btn-primary">Restart Game</button>
+                <button id="c4-reset-scores-btn" class="btn-secondary">Reset Score</button>
+            </div>
+
+            <div class="scoreboard">
+                <div class="score-card player-x">
+                    <div class="score-title" id="c4-label-p1">You (Red)</div>
+                    <div class="score-val" id="c4-score-p1">0</div>
+                </div>
+                <div class="score-card player-o">
+                    <div class="score-title" id="c4-label-p2">AI (Yellow)</div>
+                    <div class="score-val" id="c4-score-p2">0</div>
+                </div>
+            </div>
+
+            <div id="c4-status" class="status-bar turn-x">🔴 Your Turn (Red)</div>
+
+            <div class="c4-wrapper">
+                <div class="c4-board" id="c4-board"></div>
+            </div>
+        </section>
+
+        <!-- =================== GAME 3: NEON SNAKE =================== -->
+        <section id="game-snake" class="game-section hidden">
+            <div class="game-controls">
+                <div class="control-group">
+                    <label for="snake-speed">Speed:</label>
+                    <select id="snake-speed">
+                        <option value="slow">Chill</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="fast">Turbo</option>
+                    </select>
+                </div>
+
+                <button id="snake-start-btn" class="btn-primary">Start / Restart</button>
+            </div>
+
+            <div class="scoreboard">
+                <div class="score-card player-x">
+                    <div class="score-title">Current Score</div>
+                    <div class="score-val" id="snake-score">0</div>
+                </div>
+                <div class="score-card ties">
+                    <div class="score-title">Best Record</div>
+                    <div class="score-val" id="snake-high-score">0</div>
+                </div>
+            </div>
+
+            <div id="snake-status" class="status-bar">Press Start or Arrow Keys to Play</div>
+
+            <div class="snake-canvas-wrapper">
+                <canvas id="snake-canvas" width="400" height="400"></canvas>
+            </div>
+
+            <!-- Mobile Touch D-Pad -->
+            <div class="dpad">
+                <button class="dpad-btn" id="dpad-up">▲</button>
+                <button class="dpad-btn" id="dpad-left">◀</button>
+                <div id="dpad-center"></div>
+                <button class="dpad-btn" id="dpad-right">▶</button>
+                <button class="dpad-btn" id="dpad-down">▼</button>
+            </div>
+        </section>
+
+        <!-- =================== GAME 4: MEMORY MATCH =================== -->
+        <section id="game-memory" class="game-section hidden">
+            <div class="game-controls">
+                <button id="memory-restart-btn" class="btn-primary">Shuffle & Restart</button>
+            </div>
+
+            <div class="scoreboard">
+                <div class="score-card player-x">
+                    <div class="score-title">Moves</div>
+                    <div class="score-val" id="memory-moves">0</div>
+                </div>
+                <div class="score-card ties">
+                    <div class="score-title">Time</div>
+                    <div class="score-val" id="memory-timer">00:00</div>
+                </div>
+                <div class="score-card player-o">
+                    <div class="score-title">Best Moves</div>
+                    <div class="score-val" id="memory-best">-</div>
+                </div>
+            </div>
+
+            <div id="memory-status" class="status-bar">Flip cards to match the pairs!</div>
+
+            <div class="memory-grid" id="memory-grid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built with Pure HTML5, CSS3 & Modern JavaScript • No external libraries needed • Works completely offline</p>
+    </footer>
+
+    <!-- Audio & Effects Scripts -->
+    <script src="js/audio.js"></script>
+    <script src="js/confetti.js"></script>
+
+    <!-- Game Logic Scripts -->
+    <script src="js/tictactoe.js"></script>
+    <script src="js/connect4.js"></script>
+    <script src="js/snake.js"></script>
+    <script src="js/memory.js"></script>
+
+    <!-- Main Controller -->
+    <script src="js/app.js"></script>
+</body>
+</html>
